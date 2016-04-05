@@ -29,8 +29,12 @@ using std::future;
 inline vector<double> normRand(size_t n)
 {
 	vector<double> seqVec;
-	std::mt19937 ranGen(11);
-	auto nDistro = normal_distribution<> (100.0, 15.0);
+    std::random_device d;
+    std::mt19937 rando(d());
+    auto sigdist = normal_distribution<> (1.0, .5);
+    double sigma = sigdist(rando);
+	std::mt19937 ranGen(1);
+	auto nDistro = normal_distribution<> (100.0, sigma);
 	for(size_t i =0; i< n; ++i)
 		seqVec.push_back(nDistro(ranGen));
 
@@ -63,8 +67,8 @@ inline vector<int> asyncSquares(size_t n)
 //i have no idea what's going on
 function<int(int)> repeatFunction(function<int(int)> f, int n)
 {
-	auto rF = f(f);
-	return rF;
+	//auto rF = f(f);
+//	return rF;
 }
 
 #endif

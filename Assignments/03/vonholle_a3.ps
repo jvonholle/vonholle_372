@@ -5,6 +5,7 @@
 
 
 %% STEP 1 %%
+%% draws a box with no left side
 /inch {72 mul} def
 
 newpath
@@ -15,3 +16,144 @@ newpath
 stroke
 showpage
 %% END STEP 1 %%
+
+%% STEP 2 %%
+%% draws a bunch of lines that get bigger as they spin
+/i 1 def
+180 10 720 {
+    newpath
+
+    gsave
+        144 144 moveto
+        rotate
+        i 72 mul 0 rlineto
+        stroke
+    grestore
+    /i i 1 add def
+} for
+
+showpage
+%% END STEP 2 %%
+
+
+%% STEP 3 %%
+%% draws a 3x3 array of boxes
+/box{
+    newpath
+    moveto
+    72 0 rlineto
+    0 72 rlineto
+    -72 0 rlineto
+    closepath
+} def
+
+/x 72 def
+/y 72 def
+0 1 2{
+    gsave
+        0 1 2{
+         gsave
+            y x translate
+            0 0 box stroke
+            /y y 72 add def
+        grestore
+    } for
+    grestore
+    /y 72 def
+    /x x 72 add def
+} for
+
+showpage
+%% END STEP 3 %%
+
+%% STEP 4 %%
+%% boxes are the same, but different, spooky
+0 setgray
+1 setlinewidth
+72 72 moveto 72 144 lineto stroke
+
+gsave
+    0.5 setgray
+    10 setlinewidth
+    144 72 moveto 144 144 lineto stroke
+    216 72 box
+    0.35 setgray
+    fill
+grestore
+
+.5 setlinewidth
+300 72 box stroke
+
+showpage
+%% END STEP 4 %%
+
+%% STEP 5 %%
+%% drawing boxes all over the place
+0 10 360{
+    newpath
+
+    gsave
+        172 172 translate
+        rotate
+        0 0 box stroke
+    grestore
+
+} for
+
+showpage
+%% END STEP 5 %%
+
+%% STEP 6 %%
+%% draws looping array of rotated squares outlined by several circles, "pretty" colors
+/boxcirc{
+    gsave
+    newpath
+    translate
+    /r 1 def
+    /g 0 def
+    /b 0 def
+    /temp 0 def
+    0 1 360{
+        rotate
+        2 setlinewidth
+        r g b setrgbcolor
+        0 0 box stroke
+        /temp r def
+        /r g def
+        /g temp def
+        /b r def
+    } for
+    0 0 0 setrgbcolor
+    5 setlinewidth
+    0 0 102 0 360 arc stroke
+    0 0 10 0 360 arc stroke
+    0 0 72 0 360 arc stroke
+    closepath
+grestore
+} def
+
+0 1 60{
+    gsave
+    /x 172 def
+    /y 172 def
+    0 1 4{
+        gsave
+            0 1 2{
+            gsave
+                y x translate
+                0 0 boxcirc stroke
+                /y y 172 add def
+            grestore
+        } for
+        grestore
+        /y 172 def
+        /x x 172 add def
+    } for
+grestore
+30 rotate
+} for
+
+showpage
+     
+%% END PART 6 %%
+%% END PART 7 %%
